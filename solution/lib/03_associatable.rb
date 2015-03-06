@@ -3,11 +3,7 @@ require 'active_support/inflector'
 
 # Phase IIIa
 class AssocOptions
-  attr_accessor(
-    :foreign_key,
-    :class_name,
-    :primary_key
-  )
+  attr_accessor :foreign_key, :class_name, :primary_key
 
   def model_class
     @class_name.constantize

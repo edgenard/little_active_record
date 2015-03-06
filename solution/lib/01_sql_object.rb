@@ -41,9 +41,9 @@ class SQLObject
   def self.all
     results = DBConnection.execute(<<-SQL)
       SELECT
-    #{ table_name }.*
+        #{table_name}.*
       FROM
-    #{ table_name }
+        #{table_name}
     SQL
 
     parse_all(results)
@@ -56,11 +56,11 @@ class SQLObject
   def self.find(id)
     results = DBConnection.execute(<<-SQL, id)
       SELECT
-    #{ table_name }.*
+        #{table_name}.*
       FROM
-    #{ table_name }
+        #{table_name}
       WHERE
-    #{ table_name }.id = ?
+        #{table_name}.id = ?
     SQL
 
     parse_all(results).first
@@ -71,7 +71,7 @@ class SQLObject
       # make sure to convert keys to symbols
       attr_name = attr_name.to_sym
       if self.class.columns.include?(attr_name)
-        self.send("#{ attr_name }=", value)
+        self.send("#{attr_name}=", value)
       else
         raise "unknown attribute '#{attr_name}'"
       end
@@ -94,9 +94,9 @@ class SQLObject
 
     DBConnection.execute(<<-SQL, *attribute_values.drop(1))
       INSERT INTO
-        #{ self.class.table_name } (#{ col_names })
+        #{self.class.table_name} (#{col_names})
       VALUES
-        (#{ question_marks })
+        (#{question_marks})
     SQL
 
     self.id = DBConnection.last_insert_row_id
@@ -104,15 +104,15 @@ class SQLObject
 
   def update
     set_line = self.class.columns
-      .map { |attr| "#{ attr } = ?" }.join(", ")
+      .map { |attr| "#{attr} = ?" }.join(", ")
 
     DBConnection.execute(<<-SQL, *attribute_values, id)
       UPDATE
-        #{ self.class.table_name }
+        #{self.class.table_name}
       SET
-        #{ set_line }
+        #{set_line}
       WHERE
-        #{ self.class.table_name }.id = ?
+        #{self.class.table_name}.id = ?
     SQL
   end
 
