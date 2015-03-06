@@ -80,6 +80,7 @@ class SQLObject
   end
 
   def insert
+    # drop 1 to avoid inserting id (the first column)
     columns = self.class.columns.drop(1)
     col_names = columns.map(&:to_s).join(", ")
     question_marks = (["?"] * columns.count).join(", ")
