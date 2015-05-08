@@ -45,9 +45,4 @@ class DBConnection
   def self.last_insert_row_id
     instance.last_insert_row_id
   end
-
-  private
-
-  def initialize(db_file_name)
-  end
 end
