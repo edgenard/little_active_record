@@ -1,4 +1,4 @@
 *.db
 README.md
-/spec
+skeleton/spec
 /solution
